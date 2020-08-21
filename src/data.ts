@@ -50,7 +50,7 @@ export async function getTokenizerStorage(
   const tokenizer: ethers.Contract = await getContract(gov.tokenizerAddress, TOKENIZER_ABI, contractReader.provider)
   const [
     totalSupply,
-    perpetual,
+    perpetualStorage,
     tokenizerAccount
   ] = await Promise.all([
     tokenizer.totalSupply(),
@@ -59,7 +59,7 @@ export async function getTokenizerStorage(
   ])
   return {
     totalSupply: normalizeBigNumberish(totalSupply).shiftedBy(-DECIMALS),
-    perpetual,
+    perpetualStorage,
     tokenizerAccount
   }
 }
