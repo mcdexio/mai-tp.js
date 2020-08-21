@@ -1,0 +1,7 @@
+node_modules
+coverage
+dist
+npm-debug.log
+
+src/*.js
+tests/*.js
