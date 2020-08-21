@@ -6,12 +6,13 @@ export const TOKENIZER_ABI: string = JSON.stringify(TokenizerABI)
 
 export interface TokenizerGov {
   // addresses
-  tokenizer: string
-  perpetual: string
-
+  tokenizerAddress: string
+  perpetualAddress: string
+  
   // tp
   cap: BigNumber
   mintFeeRate: BigNumber
+  devAddress: string
   isPaused: boolean
   isStopped: boolean
 

@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js'
-import { DECIMALS, _0 } from '../src/constants'
+import { DECIMALS, _0 } from '@mcdex/mai2.js'
 import './jtest.d'
 
 export function getBN(s: string): BigNumber {

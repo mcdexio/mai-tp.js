@@ -283,6 +283,62 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "depositAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "mintAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "depositAndMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "dumpGov",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getDevAddress",
     "outputs": [
@@ -309,6 +365,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getPerpetualAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -329,6 +398,57 @@
         "type": "bool"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "symbol",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "perpetual",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "collateralDecimals",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "devAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "cap",
+        "type": "uint256"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tpAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "mint",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -369,6 +489,37 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "tpAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "redeem",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "redeemAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "withdrawAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "redeemAndWithdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "cap",
         "type": "uint256"
       }
@@ -400,6 +551,13 @@
       }
     ],
     "name": "setMintFeeRate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "settle",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -513,112 +671,5 @@
   {
     "stateMutability": "payable",
     "type": "receive"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "symbol",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "perpetual",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "collateralDecimals",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "devAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "cap",
-        "type": "uint256"
-      }
-    ],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tpAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "mint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tpAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "redeem",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "settle",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "depositAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "mintAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "depositAndMint",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "redeemAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "withdrawAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "redeemAndWithdraw",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   }
 ]
