@@ -46,5 +46,12 @@ export function computeTokenizerAccount(g: TokenizerGov, s: TokenizerStorage, f:
   }
 }
 
-// TODO: computeMint
-// TODO: computeRedeem
+// computeMint
+//   * deltaCash = tokenizerPrice * tpAmount
+//   * tp.cashBalance += deltaCash * (1 + mintFeeRate)
+//   * trade at MarkPrice. tp is always Long position
+
+// computeRedeem
+//   * deltaCash = tokenizerPrice * tpAmount
+//   * tp.cashBalance -= deltaCash * (1 + mintFeeRate)
+//   * trade at MarkPrice. tp is always Short position
