@@ -6,7 +6,6 @@ import { getTokenizerGov, getTokenizerStorage } from '../src/data'
 const testTP = '0x82472Bef3b89D1a54d26389DB804DeBb453b386B'
 const testPerpetual = '0x4CB3E13779B0D1806BF2e4348472670726bAb8BF'
 const testRpc = 'http://10.30.206.10:8747'
-// const testUser1 = '0x31ebd457b999bf99759602f5ece5aa5033cb56b3'
 const testAdmin = '0x6766F3CFD606E1E428747D3364baE65B6f914D56'
 
 const rpcProvider = new ethers.providers.JsonRpcProvider(testRpc)

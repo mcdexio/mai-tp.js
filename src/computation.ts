@@ -1,10 +1,10 @@
 /*
   Simulate the smart contract's computation.
  */
-import { TokenizerAccountDetails, TokenizerGov, TokenizerStorage } from './types'
+import { TokenizerComputed, TokenizerGov, TokenizerStorage } from './types'
 import { _0, _1, FundingResult, computeAccount, inversePrice } from '@mcdex/mai2.js'
 
-export function computeTokenizerAccount(g: TokenizerGov, s: TokenizerStorage, f: FundingResult): TokenizerAccountDetails {
+export function computeTokenizer(g: TokenizerGov, s: TokenizerStorage, f: FundingResult): TokenizerComputed {
   const tokenizerDetails = computeAccount(s.tokenizerAccount, g.perpetualGov, s.perpetualStorage, f)
 
   // calculate ctk if user want to mint/redeem 1 tp
@@ -38,8 +38,6 @@ export function computeTokenizerAccount(g: TokenizerGov, s: TokenizerStorage, f:
 
   const tokenizerPrice = collateral.div(tpAmount)
   return {
-    gov: g,
-    storage: s,
     details: tokenizerDetails,
     price: tokenizerPrice,
     inversePrice: inversePrice(tokenizerPrice)

@@ -10,7 +10,7 @@ import {
   AccountStorage,
   GovParams
 } from '@mcdex/mai2.js'
-import { computeTokenizerAccount } from '../src/computation'
+import { computeTokenizer } from '../src/computation'
 import { extendExpect, getBN } from './helper'
 import { TokenizerGov, TokenizerStorage } from '../src/types'
 
@@ -112,7 +112,7 @@ const tpStorage4: TokenizerStorage = {
   tokenizerAccount: accountStorage4
 }
 
-describe('computeTokenizerAccount', function () {
+describe('computeTokenizer', function () {
   interface ExpectedOutput {
     price: BigNumber
     inversePrice: BigNumber
@@ -156,7 +156,7 @@ describe('computeTokenizerAccount', function () {
   successCases.forEach((element, index) => {
     it(`computeAccount.${index}`, function () {
       const expectedOutput = element.expectedOutput
-      const computed = computeTokenizerAccount(tpGov, element.storage, fundingResult)
+      const computed = computeTokenizer(tpGov, element.storage, fundingResult)
       expect(computed.price).toApproximate(expectedOutput.price)
       expect(computed.inversePrice).toApproximate(expectedOutput.inversePrice)
     })

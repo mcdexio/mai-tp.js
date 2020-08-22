@@ -29,10 +29,8 @@ export interface TokenizerStorage {
   tokenizerAccount: AccountStorage
 }
 
-export interface TokenizerAccountDetails {
-  gov: TokenizerGov
-  storage: TokenizerStorage
-  details: AccountDetails
-  price: BigNumber // the collateral required if mint/redeem 1 tp
+export interface TokenizerComputed {
+  details: AccountDetails // perp.account(tp)
+  price: BigNumber        // the collateral required if mint/redeem 1 tp
   inversePrice: BigNumber // the collateral required if mint/redeem 1 tp
 }

@@ -63,8 +63,3 @@ export async function getTokenizerStorage(
     tokenizerAccount
   }
 }
-
-// export interface TokenizerAccountDetails extends TokenizerStorage {
-//   tokenizerComputed: AccountComputed
-//   tokenizerPrice: BigNumber // the collateral required if mint/redeem 1 tp
-// }
