@@ -49,8 +49,11 @@ export async function depositEtherAndMint(
   const largeAmount = normalizeBigNumberish(tpAmount)
     .shiftedBy(DECIMALS)
     .dp(0, BigNumber.ROUND_DOWN)
-  gas.value = new ethers.utils.BigNumber(largeDepositAmount.toFixed())
-  return await tokenizerContract.depositAndMint(largeDepositAmount.toFixed(), largeAmount.toFixed(), gas)
+  let gasWithValue: ethers.providers.TransactionRequest = {
+    ...gas,
+    value: new ethers.utils.BigNumber(largeAmount.toFixed())
+  }
+  return await tokenizerContract.depositAndMint(largeDepositAmount.toFixed(), largeAmount.toFixed(), gasWithValue)
 }
 
 export async function redeem(

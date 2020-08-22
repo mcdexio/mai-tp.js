@@ -33,4 +33,5 @@ it('redeemAndWithdraw', async function() {
   const tx = await redeemAndWithdraw(c, tpAmount, withdrawAmount, 18, testGas)
   expect(tx.gasLimit.toString()).toEqual('1234567')
   expect(tx.gasPrice.toString()).toEqual('12345')
+  await tx.wait()
 })
