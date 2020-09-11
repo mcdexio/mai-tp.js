@@ -34,3 +34,11 @@ export interface TokenizerComputed {
   price: BigNumber        // the collateral required if mint/redeem 1 tp
   inversePrice: BigNumber // the collateral required if mint/redeem 1 tp
 }
+
+export interface AccountStorageOfTokenizer {
+  // tp
+  balance: BigNumber
+
+  // perpetual
+  account: AccountStorage
+}

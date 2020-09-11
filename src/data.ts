@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-import { TOKENIZER_ABI, TokenizerGov, TokenizerStorage } from './types'
+import { AccountStorageOfTokenizer, TOKENIZER_ABI, TokenizerGov, TokenizerStorage } from './types'
 import { _0, _1, DECIMALS, normalizeBigNumberish } from '@mcdex/mai2.js'
 import { SUPPORTED_NETWORK_ID, GeneralProvider, getContract } from '@mcdex/mai2.js'
 import { getGovParams, getPerpetualStorage, getAccountStorage } from '@mcdex/mai2.js'
@@ -14,7 +14,7 @@ export async function getTokenizer(
 
 export async function getTokenizerGov(
   contractReader: ethers.Contract,
-  tokenizerAddress: string,
+  tokenizerAddress: string
 ): Promise<TokenizerGov> {
   const tokenizer: ethers.Contract = await getContract(tokenizerAddress, TOKENIZER_ABI, contractReader.provider)
   const [
@@ -30,14 +30,14 @@ export async function getTokenizerGov(
     // addresses
     tokenizerAddress,
     perpetualAddress,
-    
+
     // tp
     cap: normalizeBigNumberish(cap).shiftedBy(-DECIMALS),
     mintFeeRate: normalizeBigNumberish(mintFeeRate).shiftedBy(-DECIMALS),
     devAddress,
     isPaused,
     isStopped,
-  
+
     // perpetual gov
     perpetualGov: p
   }
@@ -61,5 +61,24 @@ export async function getTokenizerStorage(
     totalSupply: normalizeBigNumberish(totalSupply).shiftedBy(-DECIMALS),
     perpetualStorage,
     tokenizerAccount
+  }
+}
+
+export async function getAccountStorageOfTokenizer(
+  contractReader: ethers.Contract,
+  gov: TokenizerGov,
+  userAddress: string
+): Promise<AccountStorageOfTokenizer> {
+  const tokenizer: ethers.Contract = await getContract(gov.tokenizerAddress, TOKENIZER_ABI, contractReader.provider)
+  const [
+    totalSupply,
+    account
+  ] = await Promise.all([
+    tokenizer.balanceOf(userAddress),
+    getAccountStorage(contractReader, gov.perpetualAddress, userAddress)
+  ])
+  return {
+    balance: normalizeBigNumberish(totalSupply).shiftedBy(-DECIMALS),
+    account
   }
 }
