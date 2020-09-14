@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
 import {
+  BigNumberish,
   computeFunding,
   normalizeBigNumberish
 } from '@mcdex/mai2.js'
@@ -10,9 +11,9 @@ import {
   AccountStorage,
   GovParams
 } from '@mcdex/mai2.js'
-import { computeTokenizer } from '../src/computation'
+import { computeMint, computeRedeem, computeTokenizer } from '../src/computation'
 import { extendExpect, getBN } from './helper'
-import { TokenizerGov, TokenizerStorage } from '../src/types'
+import { AccountStorageOfTokenizer, TokenizerGov, TokenizerStorage } from '../src/types'
 
 extendExpect()
 
@@ -106,6 +107,34 @@ const accountStorage4: AccountStorage = {
   entryFundingLoss: _0,
 }
 
+const user1: AccountStorage = {
+  cashBalance: new BigNumber('10000'),
+  positionSide: SIDE.Flat,
+  positionSize: _0,
+  entryValue: _0,
+  entrySocialLoss: _0,
+  entryFundingLoss: _0,
+}
+
+const user2: AccountStorage = {
+  cashBalance: new BigNumber('10000'),
+  positionSide: SIDE.Sell,
+  positionSize: new BigNumber(10),
+  entryValue: _0,
+  entrySocialLoss: _0,
+  entryFundingLoss: _0,
+}
+
+const accountStorageOfTokenizer1: AccountStorageOfTokenizer = {
+  balance: _0,
+  account: user1
+}
+
+const accountStorageOfTokenizer2: AccountStorageOfTokenizer = {
+  balance: new BigNumber(10),
+  account: user2
+}
+
 const tpStorage4: TokenizerStorage = {
   totalSupply: accountStorage4.positionSize,
   perpetualStorage,
@@ -159,6 +188,88 @@ describe('computeTokenizer', function () {
       const computed = computeTokenizer(tpGov, element.storage, fundingResult)
       expect(computed.price).toApproximate(expectedOutput.price)
       expect(computed.inversePrice).toApproximate(expectedOutput.inversePrice)
+    })
+  })
+})
+
+describe('computeMint', function () {
+  interface ExpectedOutput {
+    balance: BigNumber
+    positionSize: BigNumber
+    tokenizerCashBalance: BigNumber
+  }
+
+  interface Case {
+    storage: TokenizerStorage
+    user: AccountStorageOfTokenizer
+    expectedOutput: ExpectedOutput
+    amount: BigNumberish
+  }
+
+  const expectOutput1: ExpectedOutput = {
+    balance: new BigNumber(1),
+    positionSize: new BigNumber(1),
+    tokenizerCashBalance: new BigNumber('20295.40297554347826086957')
+  }
+
+  const successCases: Array<Case> = [
+    {
+      storage: tpStorage1,
+      user: accountStorageOfTokenizer1,
+      expectedOutput: expectOutput1,
+      amount: new BigNumber(1)
+    }
+  ]
+
+  successCases.forEach((element, index) => {
+    it(`computeMint.${index}`, function () {
+      const expectedOutput = element.expectedOutput
+      console.log(element.storage.tokenizerAccount.cashBalance.toFixed())
+      const computed = computeMint(tpGov, element.storage, fundingResult, element.user, element.amount)
+      console.log(computed.user.cashBalance.toFixed())
+      expect(computed.tokenizer.cashBalance).toApproximate(expectedOutput.tokenizerCashBalance)
+      expect(computed.balance).toBeBigNumber(expectedOutput.balance)
+      expect(computed.user.positionSize).toBeBigNumber(expectedOutput.positionSize)
+    })
+  })
+})
+
+describe('computeRedeem', function () {
+  interface ExpectedOutput {
+    balance: BigNumber
+    positionSize: BigNumber
+    tokenizerCashBalance: BigNumber
+  }
+
+  interface Case {
+    storage: TokenizerStorage
+    user: AccountStorageOfTokenizer
+    expectedOutput: ExpectedOutput
+    amount: BigNumberish
+  }
+
+  const expectOutput1: ExpectedOutput = {
+    balance: new BigNumber(9),
+    positionSize: new BigNumber(9),
+    tokenizerCashBalance: new BigNumber('8982.57688858695652173913')
+  }
+
+  const successCases: Array<Case> = [
+    {
+      storage: tpStorage1,
+      user: accountStorageOfTokenizer2,
+      expectedOutput: expectOutput1,
+      amount: new BigNumber(1)
+    }
+  ]
+
+  successCases.forEach((element, index) => {
+    it(`computeMint.${index}`, function () {
+      const expectedOutput = element.expectedOutput
+      const computed = computeRedeem(tpGov, element.storage, fundingResult, element.user, element.amount)
+      expect(computed.tokenizer.cashBalance).toApproximate(expectedOutput.tokenizerCashBalance)
+      expect(computed.balance).toApproximate(expectedOutput.balance)
+      expect(computed.user.positionSize).toApproximate(expectedOutput.positionSize)
     })
   })
 })
