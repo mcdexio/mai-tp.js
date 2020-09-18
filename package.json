@@ -1,6 +1,6 @@
 {
   "name": "@mcdex/mai-tp.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mai Tokenized Position JavaScript API",
   "homepage": "https://github.com/mcdexio/mai-tokenized-position-protocol",
   "author": "Zhu Tianchi <zhutianchi@mcarlo.com>",
