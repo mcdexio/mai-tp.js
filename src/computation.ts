@@ -74,10 +74,10 @@ export function computeMint(g: TokenizerGov, s: TokenizerStorage, f: FundingResu
   }
 
   const amm2 = { ...s.tokenizerAccount, cashBalance: s.tokenizerAccount.cashBalance.plus(normalizedCollateral) }
-  const user2 = { ...user, cashBalance: user.account.cashBalance.minus(normalizedCollateral) }
+  const user2 = { ...user.account, cashBalance: user.account.cashBalance.minus(normalizedCollateral) }
 
   const newTokenizer = computeTrade(s.perpetualStorage, f, amm2, TRADE_SIDE.Buy, markPrice, normalizedAmount, g.mintFeeRate)
-  const newUser = computeTrade(s.perpetualStorage, f, user2.account, TRADE_SIDE.Sell, markPrice, normalizedAmount, g.mintFeeRate)
+  const newUser = computeTrade(s.perpetualStorage, f, user2, TRADE_SIDE.Sell, markPrice, normalizedAmount, g.mintFeeRate)
 
   return {
     tokenizer: newTokenizer,
@@ -105,10 +105,10 @@ export function computeRedeem(g: TokenizerGov, s: TokenizerStorage, f: FundingRe
   }
 
   const tokenizer = { ...s.tokenizerAccount, cashBalance: s.tokenizerAccount.cashBalance.minus(normalizedCollateral) }
-  const user2 = { ...user, cashBalance: user.account.cashBalance.plus(normalizedCollateral) }
+  const user2 = { ...user.account, cashBalance: user.account.cashBalance.plus(normalizedCollateral) }
 
   const newTokenizer = computeTrade(s.perpetualStorage, f, tokenizer, TRADE_SIDE.Sell, markPrice, normalizedAmount, g.mintFeeRate)
-  const newUser = computeTrade(s.perpetualStorage, f, user2.account, TRADE_SIDE.Buy, markPrice, normalizedAmount, g.mintFeeRate)
+  const newUser = computeTrade(s.perpetualStorage, f, user2, TRADE_SIDE.Buy, markPrice, normalizedAmount, g.mintFeeRate)
 
   return {
     tokenizer: newTokenizer,
