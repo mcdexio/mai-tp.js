@@ -1,16 +1,9 @@
 import { ethers } from 'ethers'
 
 import { AccountStorageOfTokenizer, TOKENIZER_ABI, TokenizerGov, TokenizerStorage } from './types'
-import { _0, _1, DECIMALS, normalizeBigNumberish } from '@mcdex/mai2.js'
-import { SUPPORTED_NETWORK_ID, GeneralProvider, getContract } from '@mcdex/mai2.js'
+import { DECIMALS, normalizeBigNumberish } from '@mcdex/mai2.js'
+import { getContract } from '@mcdex/mai2.js'
 import { getGovParams, getPerpetualStorage, getAccountStorage } from '@mcdex/mai2.js'
-
-export async function getTokenizer(
-  address: string,
-  generalProvider: GeneralProvider = SUPPORTED_NETWORK_ID.Mainnet
-): Promise<ethers.Contract> {
-  return await getContract(address, TOKENIZER_ABI, generalProvider)
-}
 
 export async function getTokenizerGov(
   contractReader: ethers.Contract,
